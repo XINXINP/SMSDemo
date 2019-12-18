@@ -7,9 +7,9 @@
 
 ### 短信接入平台
 
-1.注册短信服务，申请 id,密钥 2.填写配置环境
-3.npm install
-4.npm start 
+1.注册短信服务，申请 id,密钥 2.填写配置环境  
+3.npm install  
+4.npm start  
 5.浏览器打开 http://localhost:8083
 
 #### 配置环境
@@ -31,6 +31,13 @@ var params = {
   TemplateParam: '{"code":"' + code + '"}' //要发送的验证码（验证码自己设置，可以随机生成，参考程序中的）
 };
 ```
+
+#### 测试用例
+
+![Image text](1.png)
+![Image text](2.png)
+![Image text](3.png)
+![Image text](4.jpg)
 
 #### 主要参数
 
