@@ -7,13 +7,14 @@
 
 ### 短信接入平台
 
-··· 注册短信服务，申请 id,密钥
-··· npm install
-··· npm start
+1.注册短信服务，申请 id,密钥 2.填写配置环境
+3.npm install
+4.npm start 
+5.浏览器打开 http://localhost:8083
 
 #### 配置环境
 
-··· 阿里云服务器申请的短信服务，node.js 框架 express 应用
+阿里云服务器申请的短信服务，node.js 框架 express 应用
 
 ```js
 var client = new Core({
