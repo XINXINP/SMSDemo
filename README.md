@@ -35,7 +35,7 @@ var params = {
 #### 测试用例
 
 ![Image text](1.png)
-![Image text](2.png)
+![Image text](2.jpg)
 ![Image text](3.png)
 ![Image text](4.jpg)
 
