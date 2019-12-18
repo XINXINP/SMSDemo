@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>jenkins</title>
+  </head>
+  <style>
+    .btn-1 {
+      font-size: 16px;
+      background-color: rgba(23, 21, 21, 0.123);
+      color: rgba(113, 113, 107, 0.932);
+    }
+    .p-clo-false {
+      color: red;
+    }
+    .p-clo-true {
+      color: green;
+    }
+  </style>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js" async></script>
+  <script src="https://cdn.bootcss.com/fetch/3.0.0/fetch.js"></script>
+  <body>
+    <h2>雾灵短信平台接入</h2>
+    <div>
+      <label for="">手机号</label>
+      <input type="text" id="phone" placeholder="请输入11位手机号" />
+      <!-- <p style="color: red;">手机号输入有误</p>
+      <p style="color: green;">手机号输入正确</p> -->
+    </div>
+
+    <button class="btn-1" id="btn1" onclick="SignIn()">获取验证码</button>
+    <h3>返回结果<h3>
+  </body>
+  <script>
+    //监听输入
+    window.onload = function() {
+      //浏览器兼容问题
+      document.querySelector("#btn1").disabled = true;
+      var sigin = false;
+      var inputPhone = document.querySelector("#phone");
+      var p1 = document.createElement("p");
+      p1.className = "p-clo-false";
+      p1.textContent = "手机号长度有误";
+      var p2 = document.createElement("p");
+      p2.className = "p-clo-true";
+      p2.textContent = "手机号输入正确";
+      var p3 = document.createElement("p");
+      p3.className = "p-clo-false";
+      p3.textContent = "手机号输入错误";
+
+      if ("\v" == "v") {
+        //true为IE浏览器，感兴趣的同学可以去搜下，据说是现有最流行的判断浏览器的方法
+        document.querySelector("#phone").attachEvent("oninput", function(e) {
+          testPhone(poneInput);
+        });
+      } else {
+        document.querySelector("#phone").oninput = function(e) {
+          var poneInput = e.target.value || 0;
+          testPhone(poneInput);
+        };
+      }
+      function testPhone(poneInput) {
+        var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        if (poneInput.length > 11) {
+          sigin = false;
+          insertAfter(p1, inputPhone, sigin);
+        } else {
+          if (!myreg.test(poneInput)) {
+            sigin = false;
+            insertAfter(p3, inputPhone, sigin);
+          } else {
+            sigin = true;
+            insertAfter(p2, inputPhone, sigin);
+          }
+        }
+
+      }
+      
+    };
+//插入节点
+        function insertAfter(newElement, targetElement, sigin) {
+          var parent = targetElement.parentNode;
+          if (newElement == 0) {
+          } else {
+            if (parent.lastChild == targetElement) {
+              // 如果最后的节点是目标元素，则直接添加。因为默认是最后
+            } else {
+              parent.removeChild(parent.lastChild);
+              parent.insertBefore(newElement, targetElement.nextSibling);
+              //如果不是，则插入在目标元素的下一个兄弟节点 的前面。也就是目标元素的后面
+            }
+          }
+          document.querySelector("#btn1").disabled = !sigin;
+          if (sigin) {
+            document.querySelector("#btn1").style.cssText =
+              "background-color:aqua;color: white;font-size: 16px;";
+          } else {
+            document.querySelector("#btn1").style.cssText =
+              "background-color: rgba(23, 21, 21, 0.123);color: rgba(113, 113, 107, 0.932);font-size: 16px;";
+          }
+        }
+//获取验证码
+function SignIn() {
+        var phoneNumber = document.querySelector("#phone").value;
+        send(phoneNumber);
+      }
+function send(phoneNumber){
+      var date = (new Date()).valueOf();
+ fetch(`http://localhost:8083/phone?phone=${phoneNumber}&date=${date}`,{
+     headers:{
+         'content-type':'application/json',
+         'Access-Control-Allow-Origin': 'http://localhost:8083'
+     },
+     method:'GET',
+}).then(res => res.json()).then((res) =>{
+  window.localStorage.setItem ('sginNumber',res.sginNumber)
+  debugger
+  addYAN()
+  var btn = document.createElement('button');
+  btn.onclick = loginq
+  btn.textContent = '登录'
+  document.querySelector("#phone").parentNode.appendChild(btn)
+  document.querySelector('h3').innerText = res.Message
+}
+).catch(err=>{
+  addYAN()
+  alert(err)
+})
+}
+function addYAN(){
+      var inputPhone = document.querySelector("#phone");
+      inputPhone.disabled= true
+      setTimeout(() => {
+        inputPhone.disabled= false
+      }, 60000);
+      var input1 = document.createElement("input");
+      input1.placeholder = "请输入验证码";
+      input1.id='input2'
+      var div1 = document.createElement('div');
+      div1.appendChild(input1);
+//灰色验证码
+      document.querySelector("#btn1").style.cssText =
+              "background-color: rgba(23, 21, 21, 0.123);color: rgba(113, 113, 107, 0.932);font-size: 16px;";
+//添加输入框
+insertAfter(div1, inputPhone);
+}
+//验证注册
+function loginq(){
+  fetch("http://localhost:8083/sendphone",{
+ 　 method:"POST",
+ 　 mode: 'cors',
+　　headers: {
+　　　　'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': 'http://localhost:8083'
+　　},
+　　body:JSON.stringify({
+ 　　'code' : document.querySelector("#input2").value.toString(),
+      'sginNumber':window.localStorage.getItem ('sginNumber').toString()
+　　})
+　　}).then(res => res.json()).then(json => {
+  alert(json.message)
+})
+}
+  </script>
+</html>

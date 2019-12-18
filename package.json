@@ -1,0 +1,26 @@
+{
+  "name": "wuling",
+  "version": "1.0.0",
+  "description": "短信接入（node）",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": " node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.lug.ustc.edu.cn/panxin1997/wuling.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@alicloud/pop-core": "^1.7.7"
+  },
+  "devDependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1"
+  }
+}
