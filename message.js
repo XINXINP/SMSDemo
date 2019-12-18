@@ -28,6 +28,8 @@ module.exports = function sendSMS(phoneNumber, res) {
         var radom = Math.floor(Math.random() * 10);
         code += radom;
     }
+    //我当时的模板配置
+    //自己可以配置
     var params = {
         "RegionId": "cn-hangzhou",
         "PhoneNumbers": phoneNumber,

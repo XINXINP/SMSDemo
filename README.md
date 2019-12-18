@@ -22,6 +22,13 @@ var client = new Core({
   endpoint: "https://dysmsapi.aliyuncs.com",
   apiVersion: "2017-05-25"
 });
+var params = {
+  RegionId: "", //模板自己申请
+  PhoneNumbers: phoneNumber, //要发送的手机号
+  SignName: "雾灵", //应用名称（自己创建）
+  TemplateCode: "", //模板code（自己创建）
+  TemplateParam: '{"code":"' + code + '"}' //要发送的验证码（验证码自己设置，可以随机生成，参考程序中的）
+};
 ```
 
 #### 主要参数
@@ -43,3 +50,7 @@ var client = new Core({
 #### 详细参考
 
 [nodejs sdk参考]: https://help.aliyun.com/document_detail/57342.html?spm=a2c1g.8271268.10000.121.137fdf25hQ4V5g
+
+#### 最后
+
+麻烦给个 star,谢谢
